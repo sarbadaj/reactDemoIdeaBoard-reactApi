@@ -6,8 +6,14 @@ module Api::V1
     end
 
     def index
-      @ideas = Idea.all
-      render json: @ideas
+      ideas = Idea.order("created_at DESC")
+      render json: ideas
+    end
+
+    def update
+      idea = Idea.find(params[:id])
+      idea.update_attributes(idea_params)
+      render json: idea
     end
 
     private
